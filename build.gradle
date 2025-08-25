@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'org.walkmanx21.Main'
+        )
+    }
+}
+
+group = 'org.walkmanx21'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'org.hibernate.orm:hibernate-core:7.1.0.Final'
+    implementation 'org.hibernate.orm:hibernate-hikaricp:7.1.0.Final'
+    implementation 'org.postgresql:postgresql:42.7.7'
+
+    compileOnly("org.projectlombok:lombok:1.18.38")
+    annotationProcessor("org.projectlombok:lombok:1.18.38")
+    testCompileOnly("org.projectlombok:lombok:1.18.38")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.38")
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.named('shadowJar') {
+    archiveClassifier.set('')
+}
